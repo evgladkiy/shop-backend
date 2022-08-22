@@ -1,10 +1,13 @@
 import { middyfy } from '@libs/lambda';
 import { APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
-import { products } from 'src/mock/products';
 
-// import schema from './schema';
+import { ProductsProvider } from '../../providers/products';
+
+const productsProvider = new ProductsProvider();
 
 const getProductList: APIGatewayProxyHandler = async (): Promise<APIGatewayProxyResult> => {
+  const products = await productsProvider.getProducts();
+  
   return {
     statusCode: 200,
     headers: {

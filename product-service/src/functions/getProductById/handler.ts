@@ -1,8 +1,12 @@
 import { middyfy } from '@libs/lambda';
 import { APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
-import { products } from 'src/mock/products';
+
+import { ProductsProvider } from '../../providers/products';
+
+const productsProvider = new ProductsProvider();
 
 const getProductById: APIGatewayProxyHandler = async (event): Promise<APIGatewayProxyResult> => {
+  const products = await productsProvider.getProducts();
   const { pathParameters } = event;
   const product = products.find(product => product.id === pathParameters.productId);
 
