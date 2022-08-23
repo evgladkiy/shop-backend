@@ -10,9 +10,9 @@ export const HttpResponse = {
     body: JSON.stringify(data),
     headers,
   }),
-  notFound: (): APIGatewayProxyResult => ({
+  notFound: <T>(data: T = {} as T): APIGatewayProxyResult => ({
     statusCode: 404,
-    body: JSON.stringify({}),
+    body: JSON.stringify(data),
     headers,
   }),
   success: <T>(data: T = {} as T): APIGatewayProxyResult => ({

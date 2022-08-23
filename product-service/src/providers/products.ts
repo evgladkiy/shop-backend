@@ -7,6 +7,7 @@ import { products } from '../mock/products';
 export class ProductsProvider {
   async getProducts(): Promise<Array<Product>> {
     // Return mocked data for task 3
+    console.log('ProductsProvider: getProducts call received');
     return products;
   }
 }
