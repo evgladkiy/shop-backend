@@ -1,7 +1,8 @@
 import { middyfy } from '@libs/lambda';
 import { APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
 
-import { ProductsProvider } from '../../providers/products';
+import { HttpResponse } from '../../helpers';
+import { ProductsProvider } from '../../providers';
 
 const productsProvider = new ProductsProvider();
 
@@ -10,14 +11,7 @@ const getProductById: APIGatewayProxyHandler = async (event): Promise<APIGateway
   const { pathParameters } = event;
   const product = products.find(product => product.id === pathParameters.productId);
 
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
-    body: JSON.stringify(product)
-  }
+  return HttpResponse.success(product)
 };
 
 export const main = middyfy(getProductById);
