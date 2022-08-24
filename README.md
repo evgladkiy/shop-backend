@@ -1,1 +1,5 @@
-# shop-backend
+# Mizuno Shop Backend
+
+## Services 
+
+- Product Service
