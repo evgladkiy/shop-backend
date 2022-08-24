@@ -16,7 +16,10 @@ const getProductList: APIGatewayProxyHandler = async (event): Promise<APIGateway
     return HttpResponse.success(products);
   } catch (error) {
     console.log('GetProductList Lambda: ProductList retrieving error - ', error);
-    return HttpResponse.success(error);
+    return HttpResponse.serverError({
+      error: 'Server Error',
+      request: event
+    });
   }
 };
 

@@ -1,4 +1,5 @@
 import { handlerPath } from '@libs/handler-resolver';
+import { default as documentation } from './docs';
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
@@ -7,7 +8,8 @@ export default {
       http: {
         method: 'get',
         path: 'products',
-        cors: true
+        cors: true,
+        ...documentation
       },
     },
   ],

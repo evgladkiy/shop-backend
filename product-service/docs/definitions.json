@@ -1,0 +1,59 @@
+{
+  "definitions": {
+    "Product": {
+      "required": [
+        "description",
+        "id",
+        "img",
+        "price",
+        "title",
+        "weight"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "title": {
+          "type": "string",
+          "example": "Mizuno Wave Shoes"
+        },
+        "description": {
+          "type": "string",
+          "example": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, assumenda amet asperiores sapiente ipsum ducimus eligendi architecto aliquam maiores aut!"
+        },
+        "price": {
+          "type": "number",
+          "example": 210
+        },
+        "weight": {
+          "type": "number",
+          "example": 345
+        },
+        "img": {
+          "type": "string",
+          "example": "https://dlbqczpap4fan.cloudfront.net/momentum.png"
+        }
+      }
+    },
+    "Products": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Product"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type":"string"
+        },
+        "request": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}
