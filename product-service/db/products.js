@@ -1,4 +1,4 @@
-export const products = [
+module.exports = [
   {
     id: "6302b53b1f7d15ecfb052f55",
     title: "Mizuno Wave Momentum 2",
