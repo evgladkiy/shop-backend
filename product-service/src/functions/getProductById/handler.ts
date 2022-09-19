@@ -1,10 +1,10 @@
 import { middyfy } from '@libs/lambda';
 import { APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
+import { ProductProvider } from 'src/providers';
 
 import { HttpResponse } from '../../helpers';
-import { ProductsProvider } from '../../providers';
 
-const productsProvider = new ProductsProvider();
+const productsProvider = new ProductProvider();
 
 const getProductById: APIGatewayProxyHandler = async (event): Promise<APIGatewayProxyResult> => {
   console.log('GetProductById Lambda: Function execution is stated with event - ', JSON.stringify(event));

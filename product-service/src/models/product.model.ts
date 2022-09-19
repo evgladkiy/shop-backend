@@ -1,8 +1,4 @@
-export interface Product {
-  readonly id: string;
-  readonly title: string;
-  readonly description: string;
-  readonly price: number,
-  readonly weight: number,
-  readonly img: string;
-}
+import { ProductMetadata } from './productMetadata.model';
+import { ProductStock } from './productStock.model';
+
+export interface Product extends ProductMetadata, ProductStock {}
