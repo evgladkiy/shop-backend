@@ -7,7 +7,8 @@
         "img",
         "price",
         "title",
-        "weight"
+        "weight",
+        "count"
       ],
       "type": "object",
       "properties": {
@@ -35,6 +36,10 @@
         "img": {
           "type": "string",
           "example": "https://dlbqczpap4fan.cloudfront.net/momentum.png"
+        },
+        "count": {
+          "type": "number",
+          "example": 8
         }
       }
     },
