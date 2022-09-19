@@ -3,7 +3,6 @@ import type { AWS } from '@serverless/typescript';
 import getProductList from '@functions/getProductList';
 import getProductById from '@functions/getProductById';
 import createProduct from '@functions/createProduct';
-import deleteProduct from '@functions/deleteProduct';
 
 import { DEPLOY_REGIN } from 'src/constants';
 import { resources } from 'src/sls/resources';
@@ -44,7 +43,6 @@ const serverlessConfiguration: AWS = {
     getProductList,
     getProductById,
     createProduct,
-    deleteProduct,
   },
   package: { 
     individually: true
