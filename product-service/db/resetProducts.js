@@ -1,13 +1,9 @@
-const { PRODUCT_TABLE_NAME } = require('./constants');
+const products = require('./products');
+const { resetTable } = require('./resetTable');
 
-module.exports.getDeleteParams = (idParams) => ({
-  TableName: PRODUCT_TABLE_NAME,
-  Key: {
-      id: idParams
-  }
-});
+const PRODUCT_TABLE_NAME = 'Products';
 
-module.exports.getCreateParams = (product) => ({
+const getCreateProductParams = (product) => ({
   TableName: PRODUCT_TABLE_NAME,
   Item: {
     id: {
@@ -30,3 +26,5 @@ module.exports.getCreateParams = (product) => ({
     }
   }
 });
+
+resetTable(PRODUCT_TABLE_NAME, products, getCreateProductParams);
