@@ -20,38 +20,37 @@ const getDeleteParams = (table, idParams) => ({
 
 const deleteItem = async(table, id) => {
   const params = getDeleteParams(table, id);
-  await dynamoDB.deleteItem(params, (err) => {
+  return dynamoDB.deleteItem(params, (err) => {
     if (err) {
-      console.log("Error", err);
-    } else {
-      console.log('Item deleted');
+      console.log('Error', err);
     }
-  });
+  }).promise();
 };
 
+
 const createItem = async(params) => {
-  await dynamoDB.putItem(params, (err) => {
+  return dynamoDB.putItem(params, (err) => {
     if (err) {
-      console.log("Error", err);
-    } else {
-      console.log('Item created');
+      console.log('Error', err);
     }
-  });
+  }).promise();
 };
 
 module.exports.resetTable = async (table, items, paramsHandler) => {
   await dynamoDB.scan({ TableName: table }, async function(err, data) {
     if (err) {
-      console.log("Error", err);
+      console.log('Error', err);
     } else {
       const dbItems = data.Items;
       for (let dbItem of dbItems) {
         await deleteItem(table, dbItem.id);
       }
+      console.log(`${table} table cleared`);
       for (let item of items) {
         const params = paramsHandler(item);
         await createItem(params);
       }
+      console.log(`${table} table filled`);
     }
   });
 };
