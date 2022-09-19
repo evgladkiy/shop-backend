@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Product, ProductMetadata } from '../models';
 import { ProductMetadataProvider } from './productMetadataProvider';
 import { ProductStockProvider } from './productStockProvider';
@@ -25,6 +26,8 @@ import { ProductStock } from '../models/productStock.model';
           products.push(product);
         });
       }
+      console.log('ProductsProvider: GetProducts call completed');
+
       return products;
     } catch (error)  {
       console.log('ProductsProvider: Error while retrieving products from DB - ', error);
@@ -37,9 +40,32 @@ import { ProductStock } from '../models/productStock.model';
       const metadata = await this.metadataProvider.getProductMeta(id);
       const stock = await this.stockProvider.getProductStock(id);
 
+      console.log('ProductsProvider: GetProduct call completed');
       return this.mergeProductData(metadata, stock);
     } catch (error)  {
       console.log('ProductsProvider: Error while retrieving product from DB - ', error);
+    }
+  }
+
+  async createProduct(product: Product): Promise<Product> {
+    console.log('ProductsProvider: CreateProduct call received');
+    try {
+      const newProduct = {
+        ...product,
+        id: uuidv4()
+      };
+      const { count, ...meta } = newProduct;
+
+      await this.metadataProvider.createProductMetadata(meta);
+      await this.stockProvider.createProductStock({
+        count,
+        id: product.id
+      });
+      console.log('ProductsProvider: CreateProduct call completed');
+
+      return newProduct;
+    } catch (error)  {
+      console.log('ProductsProvider: Error while creating product in DB - ', error);
     }
   }
 

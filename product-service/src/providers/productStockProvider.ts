@@ -40,4 +40,22 @@ export class ProductStockProvider {
       console.log('ProductStockProvider: Error while retrieving product stock from DB - ', error);
     }
   }
+
+  async createProductStock(meta: ProductStock): Promise<void> {
+    console.log('ProductStockProvider: CreateProductStock call received');
+    try {
+      console.log('ProductStockProvider: Try to create productStock in DB');
+      await this.client.put({
+        TableName: this.tableName,
+        Item: {
+          id: meta.id || '',
+          count: meta.count || 0,
+        },
+      }).promise();
+      console.log('ProductStockProvider: ProductStock created successfully');
+     return null;
+    } catch (error)  {
+      console.log('ProductStockProvider: Error while creating productStock in DB - ', error);
+    }
+  }
 }

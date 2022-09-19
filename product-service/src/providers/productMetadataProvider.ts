@@ -40,4 +40,26 @@ export class ProductMetadataProvider {
       console.log('ProductMetadataProvider: Error while retrieving productMetadata from DB - ', error);
     }
   }
+
+  async createProductMetadata(meta: ProductMetadata): Promise<void> {
+    console.log('ProductMetadataProvider: CreateProductMetadata call received');
+    try {
+      console.log('ProductMetadataProvider: Try to create productMetadata in DB');
+      await this.client.put({
+        TableName: this.tableName,
+        Item: {
+          id: meta.id || '',
+          title: meta.title || '',
+          description: meta.description || '',
+          price: meta.price || 0,
+          weight: meta.weight || 0,
+          img: meta.img || ''
+        },
+      }).promise();
+      console.log('ProductMetadataProvider: ProductMetadata created successfully');
+     return null;
+    } catch (error)  {
+      console.log('ProductMetadataProvider: Error while creating productMetadata in DB - ', error);
+    }
+  }
 }

@@ -7,14 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:init": "node db/resetProducts.js  && node db/resetStocks.js",
     "local:getProductList": "npx sls invoke local -f getProductList",
-    "local:getProductById": "npx sls invoke local -f getProductById --path src/functions/getProductById/mock.json"
+    "local:getProductById": "npx sls invoke local -f getProductById --path src/functions/getProductById/mock.json",
+    "local:createProduct": "npx sls invoke local -f createProduct --path src/functions/createProduct/mock.json"
   },
   "engines": {
     "node": ">=14.15.0"
   },
   "dependencies": {
     "@middy/core": "^2.5.3",
-    "@middy/http-json-body-parser": "^2.5.3"
+    "@middy/http-json-body-parser": "^2.5.3",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
