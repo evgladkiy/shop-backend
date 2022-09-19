@@ -8,22 +8,19 @@ const productsProvider = new ProductsProvider();
 
 const getProductById: APIGatewayProxyHandler = async (event): Promise<APIGatewayProxyResult> => {
   console.log('GetProductById Lambda: Function execution is stated with event - ', JSON.stringify(event));
-
   const productId = event?.pathParameters?.productId;
 
   if (!productId) {
     console.log('GetProductById Lambda: Request is invalid - ', JSON.stringify(event));
-
     return HttpResponse.badRequest({
       error: `Request is invalid, 'productId' is missing`, 
       request: event,
     });
   }
-  console.log('GetProductById Lambda: Try to retrieve productList');
-  const products = await productsProvider.getProducts();
-  console.log('GetProductList Lambda: ProductList retrieved successfully - ', products);
-  console.log(`GetProductById Lambda: Try to find product with id ${productId}`);
-  const product = products.find(product => product.id === productId);
+
+  console.log('GetProductById Lambda: Try to retrieve product');
+  const product = await productsProvider.getProduct(productId);
+  console.log('GetProductList Lambda: Product retrieved successfully - ', product);
 
   if (!product) {
     console.log(`GetProductById Lambda: Cannot find product with id ${productId}`);
