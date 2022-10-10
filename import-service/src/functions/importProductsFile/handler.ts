@@ -1,29 +1,34 @@
 import { APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { HttpResponse } from 'src/helpers';
 import { middyfy } from '@libs/lambda';
-import { DEPLOY_REGION, UPLOAD_S3_BUCKET_NAME } from 'src/constants';
+import { ImportFileService } from 'src/services';
 
-const importProductsFile: APIGatewayProxyHandler = async (event): Promise<APIGatewayProxyResult> => {
-  const name = event.queryStringParameters.name;
-  if (name) {
-    const s3 = new S3Client({ region: DEPLOY_REGION })
+const importFileService = new ImportFileService();
 
-    const putObjectParams = {
-        Bucket: UPLOAD_S3_BUCKET_NAME,
-        Key: `uploaded/${name}`,
-    };
-    const command = new PutObjectCommand(putObjectParams);
-    const url = await getSignedUrl(s3, command);
+const importProductsFile: APIGatewayProxyHandler = async(event): Promise<APIGatewayProxyResult> => {
+  console.log('ImportProductsFile Lambda: Function execution is stated with event - ', JSON.stringify(event));
+  const fileName = event?.queryStringParameters?.name;
 
-    return HttpResponse.success({ url });
+  if (!fileName) {
+    console.log('ImportProductsFile Lambda: Request is invalid - ', JSON.stringify(event));
+    return HttpResponse.badRequest({
+      error: `Request is invalid, 'name' is missing`, 
+      request: event,
+    });
   }
 
-  return HttpResponse.badRequest({
-    name: `bad request`,
-    event,
-  });
+  try {
+    console.log('ImportProductsFile Lambda: Try to create signed url');
+    const url = await importFileService.getUploadUrl(fileName);
+    console.log(`ImportProductsFile Lambda: Signed url created successfully - ${url}`);
+    return HttpResponse.success({ url });
+  } catch(error) {
+    console.log('Error while creating signed url - ', JSON.stringify(error));
+    return HttpResponse.serverError({
+      error: `Error while creating signed url - ${ JSON.stringify(error)}`, 
+      request: event,
+    });
+  }
 };
 
 export const main = middyfy(importProductsFile);
