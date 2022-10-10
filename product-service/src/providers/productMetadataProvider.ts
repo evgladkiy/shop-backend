@@ -62,4 +62,21 @@ export class ProductMetadataProvider {
       console.log('ProductMetadataProvider: Error while creating productMetadata in DB - ', error);
     }
   }
+
+  async deleteProductMetadata(id: string): Promise<void> {
+    console.log('ProductMetadataProvider: DeleteProductMetadata call received');
+    try {
+      console.log('ProductMetadataProvider: Try to delete productMetadata in DB');
+      await this.client.delete({
+        TableName: this.tableName,
+        Key: {
+          id,
+        }
+      }).promise();
+      console.log('ProductMetadataProvider: ProductMetadata deleted successfully');
+     return null;
+    } catch (error)  {
+      console.log('ProductMetadataProvider: Error while deleting productMetadata in DB - ', error);
+    }
+  }
 }

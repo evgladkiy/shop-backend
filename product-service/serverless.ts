@@ -3,6 +3,7 @@ import type { AWS } from '@serverless/typescript';
 import getProductList from '@functions/getProductList';
 import getProductById from '@functions/getProductById';
 import createProduct from '@functions/createProduct';
+
 import { DEPLOY_REGIN } from 'src/constants';
 import { resources } from 'src/sls/resources';
 import { custom } from 'src/sls/custom';

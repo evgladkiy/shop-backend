@@ -31,7 +31,7 @@ const getProductById: APIGatewayProxyHandler = async (event): Promise<APIGateway
   }
 
   console.log(`GetProductById Lambda: Product with id ${productId} is found - `, product);
-  return HttpResponse.success(product)
+  return HttpResponse.success(product);
 };
 
 export const main = middyfy(getProductById);

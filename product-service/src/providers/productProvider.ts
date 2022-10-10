@@ -69,6 +69,19 @@ import { ProductStock } from '../models/productStock.model';
     }
   }
 
+  async deleteProduct(id: string): Promise<void> {
+    console.log('ProductsProvider: DeleteProduct call received');
+    try {
+      await this.metadataProvider.deleteProductMetadata(id);
+      await this.stockProvider.deleteProductStock(id);
+      console.log('ProductsProvider: CreateProduct call completed');
+
+      return null;
+    } catch (error)  {
+      console.log('ProductsProvider: Error while creating product in DB - ', error);
+    }
+  }
+
   private mergeProductData(meta: ProductMetadata, stock: ProductStock): Product {
     return {
       ...meta,

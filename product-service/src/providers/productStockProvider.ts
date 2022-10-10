@@ -58,4 +58,21 @@ export class ProductStockProvider {
       console.log('ProductStockProvider: Error while creating productStock in DB - ', error);
     }
   }
+
+  async deleteProductStock(id: string): Promise<void> {
+    console.log('ProductStockProvider: DeleteProductStock call received');
+    try {
+      console.log('ProductStockProvider: Try to delete productStock in DB');
+      await this.client.delete({
+        TableName: this.tableName,
+        Key: {
+          id,
+        }
+      }).promise();
+      console.log('ProductStockProvider: ProductStock deletes successfully');
+     return null;
+    } catch (error)  {
+      console.log('ProductStockProvider: Error while deleting productStock in DB - ', error);
+    }
+  }
 }
