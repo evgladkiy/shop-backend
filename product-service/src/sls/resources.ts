@@ -1,6 +1,4 @@
-// import { PRODUCT_TABLE_NAME } from '../src/config/consts';
-
-import { PRODUCT_TABLE_NAME, STOCK_TABLE_NAME } from 'src/constants';
+import { CATALOG_ITEM_QUEUE_NAME, PRODUCT_TABLE_NAME, STOCK_TABLE_NAME } from 'src/constants';
 
 export const resources = {
   Resources: {
@@ -42,6 +40,12 @@ export const resources = {
           ReadCapacityUnits: 1,
           WriteCapacityUnits: 1
         },
+      }
+    },
+    SQSQueue: {
+      Type: 'AWS::SQS::Queue',
+      Properties: {
+        QueueName: CATALOG_ITEM_QUEUE_NAME
       }
     }
   }
