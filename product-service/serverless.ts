@@ -5,7 +5,7 @@ import getProductById from '@functions/getProductById';
 import createProduct from '@functions/createProduct';
 import catalogBatchProcess from '@functions/catalogBatchProcess';
 
-import { CATALOG_ITEM_QUEUE_NAME, DEPLOY_REGIN } from 'src/constants';
+import { DEPLOY_REGIN } from 'src/constants';
 import { resources } from 'src/sls/resources';
 import { custom } from 'src/sls/custom';
 
@@ -37,12 +37,6 @@ const serverlessConfiguration: AWS = {
           'dynamodb:PutItem'
         ],
         Resource: `arn:aws:dynamodb:${DEPLOY_REGIN}:*:table/*`
-      },
-      {
-        Effect: 'Allow',
-        Action: ['sqs:*'],
-        Resource: `arn:aws:sqs:${DEPLOY_REGIN}:*:${CATALOG_ITEM_QUEUE_NAME}`
-        
       }
     ]
   },
