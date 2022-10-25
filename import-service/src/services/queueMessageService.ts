@@ -10,9 +10,10 @@ export class QueueMessageService {
     console.log('QueueMessageService: SendMessages call received');
     try {
       const batchEntities: Array<SendMessageBatchRequestEntry> = params.map((x) => ({
-        Id: x.id as string,
-        MessageBody: JSON.stringify(x),
+        Id: x.id,
+        MessageBody: JSON.stringify(x)
       }));
+
       console.log('QueueMessageService: Try to split messages to batches');
       const batchMessages = this.createBatchMessages(batchEntities);
 
@@ -22,13 +23,14 @@ export class QueueMessageService {
       console.log('QueueMessageService: Messages sent successfully');
     } catch(error) {
       console.log('QueueMessageService: Error while sending messages signed to Queue - ', error);
+      throw Error(error);
     }
   }
 
-  private async sendMessage(message: Array<SendMessageBatchRequestEntry>): Promise<SendMessageBatchCommandOutput> {
+  private async sendMessage(messages: Array<SendMessageBatchRequestEntry>): Promise<SendMessageBatchCommandOutput> {
     const command = new SendMessageBatchCommand({
       QueueUrl: this.queueUrl,
-      Entries: message,
+      Entries: messages,
     });
     console.log('QueueMessageService: Try to send batch to queue, -', command);
     const result = await this.client.send(command);
