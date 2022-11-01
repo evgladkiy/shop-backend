@@ -1,5 +1,4 @@
 import { handlerPath } from '@libs/handler-resolver';
-import { DEPLOY_REGIN } from 'src/constants';
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
@@ -7,7 +6,7 @@ export default {
     {
       sqs: {
         batchSize: 5,
-        arn: `arn:aws:sqs:${DEPLOY_REGIN}:*:catalogProductsQueue`
+        arn: 'arn:aws:sqs:eu-west-1:958333515474:catalogProductsQueue'
       },
     },
   ]

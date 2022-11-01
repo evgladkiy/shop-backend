@@ -1,7 +1,7 @@
 import { middyfy } from '@libs/lambda';
 import { APIGatewayProxyHandler, APIGatewayProxyResult } from 'aws-lambda';
-import { Product } from 'src/models';
 
+import { Product } from 'src/models';
 import { HttpResponse } from '../../helpers';
 import { ProductProvider } from '../../providers';
 
@@ -16,7 +16,7 @@ const createProduct: APIGatewayProxyHandler = async (event): Promise<APIGatewayP
     console.log('CreateProduct Lambda: Product created successfully - ', dbProduct);
     return HttpResponse.success(dbProduct);
   } catch (error) {
-    console.log('CreateProduct Lambda: Product creation error - ', error);
+    console.log('CreateProduct Lambda: Error while population DB - ', error);
     return HttpResponse.serverError({
       error: 'Server Error',
       request: event

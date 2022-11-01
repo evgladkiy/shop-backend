@@ -3,11 +3,11 @@ import type { AWS } from '@serverless/typescript';
 import getProductList from '@functions/getProductList';
 import getProductById from '@functions/getProductById';
 import createProduct from '@functions/createProduct';
-import catalogBatchProcess from '@functions/catalogBatchProcess';
 
-import { DEPLOY_REGIN } from 'src/constants';
+import { DEPLOY_REGION } from 'src/constants';
 import { resources } from 'src/sls/resources';
 import { custom } from 'src/sls/custom';
+import catalogBatchProcess from '@functions/catalogBatchProcess';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
@@ -16,7 +16,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
-    region: DEPLOY_REGIN,
+    region: DEPLOY_REGION,
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -36,7 +36,7 @@ const serverlessConfiguration: AWS = {
           'dynamodb:UpdateItem',
           'dynamodb:PutItem'
         ],
-        Resource: `arn:aws:dynamodb:${DEPLOY_REGIN}:*:table/*`
+        Resource: `arn:aws:dynamodb:${DEPLOY_REGION}:*:table/*`
       }
     ]
   },

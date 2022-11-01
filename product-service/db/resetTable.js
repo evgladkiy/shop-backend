@@ -1,10 +1,10 @@
 const AWS = require('aws-sdk');
 
-const DEPLOY_REGIN = 'eu-west-1';
+const DEPLOY_REGION = 'eu-west-1';
 const API_VERSION = '2012-08-10';
 
 AWS.config.update({
-  region: DEPLOY_REGIN
+  region: DEPLOY_REGION
 });
 
 const dynamoDB = new AWS.DynamoDB({

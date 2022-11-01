@@ -51,8 +51,8 @@ export class ProductMetadataProvider {
           id: meta.id || '',
           title: meta.title || '',
           description: meta.description || '',
-          price: meta.price || 0,
-          weight: meta.weight || 0,
+          price: Number(meta.price) || 0,
+          weight:  Number(meta.weight) || 0,
           img: meta.img || ''
         },
       }).promise();
