@@ -12,7 +12,7 @@ const catalogBatchProcess = async (event: SQSEvent) => {
     console.log('CatalogBatchProcess Lambda: Try to populate DB with Products');
     const records = event.Records;
     for (let record of records) {
-      const product: Product = JSON.parse(record.body)
+      const product: Product = JSON.parse(record.body);
       const dbProduct = await productsProvider.createProduct(product);
       console.log('CatalogBatchProcess Lambda: Product Added to DB - ', JSON.stringify(dbProduct));
     }
@@ -23,9 +23,7 @@ const catalogBatchProcess = async (event: SQSEvent) => {
       error: 'Server Error',
       request: event
     });
-    
   }
-
 };
 
 export const main = catalogBatchProcess;

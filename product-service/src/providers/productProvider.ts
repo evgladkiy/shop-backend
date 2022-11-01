@@ -50,17 +50,12 @@ import { ProductStock } from '../models/productStock.model';
   async createProduct(product: Product): Promise<Product> {
     console.log('ProductsProvider: CreateProduct call received');
     try {
-      const newProduct = {
-        ...product,
-        id: uuidv4()
-      };
+      const id = product.id || uuidv4();
+      const newProduct = { ...product, id };
       const { count, ...meta } = newProduct;
 
       await this.metadataProvider.createProductMetadata(meta);
-      await this.stockProvider.createProductStock({
-        count,
-        id: product.id
-      });
+      await this.stockProvider.createProductStock({ count, id });
       console.log('ProductsProvider: CreateProduct call completed');
 
       return newProduct;
@@ -81,6 +76,7 @@ import { ProductStock } from '../models/productStock.model';
       console.log('ProductsProvider: Error while creating product in DB - ', error);
     }
   }
+  
 
   private mergeProductData(meta: ProductMetadata, stock: ProductStock): Product {
     return {
