@@ -2,7 +2,7 @@ import { SQSEvent } from 'aws-lambda';
 import { HttpResponse } from 'src/helpers';
 import { Product } from 'src/models/product.model';
 import { ProductProvider } from 'src/providers';
-import { NotificationService } from 'src/services/queueMessageService';
+import { NotificationService } from 'src/services/notificationService';
 
 const productsProvider = new ProductProvider();
 const notificationService = new NotificationService();
