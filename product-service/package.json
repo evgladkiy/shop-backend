@@ -14,6 +14,7 @@
     "node": ">=14.15.0"
   },
   "dependencies": {
+    "@aws-sdk/client-sns": "^3.201.0",
     "@middy/core": "^2.5.3",
     "@middy/http-json-body-parser": "^2.5.3",
     "uuid": "^9.0.0"

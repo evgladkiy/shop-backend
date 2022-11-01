@@ -1,4 +1,4 @@
-import { CATALOG_PRODUCT_QUEUE_NAME, PRODUCT_TABLE_NAME, STOCK_TABLE_NAME } from 'src/constants';
+import { CATALOG_PRODUCT_QUEUE_NAME, CREATE_PRODUCT_TOPIC_NAME, PRODUCT_TABLE_NAME, STOCK_TABLE_NAME } from 'src/constants';
 
 export const resources = {
   Resources: {
@@ -47,6 +47,22 @@ export const resources = {
       Properties: {
         QueueName: CATALOG_PRODUCT_QUEUE_NAME
       }
-    }
+    },
+    SNSTopic: {
+      Type: 'AWS::SNS::Topic',
+      Properties: {
+        TopicName: CREATE_PRODUCT_TOPIC_NAME
+      }
+    },
+    SNSSubscription: {
+      Type: 'AWS::SNS::Subscription',
+      Properties: {
+        Endpoint: 'evgladkiy@gmail.com',
+        Protocol: 'email',
+        TopicArn: {
+          Ref: 'SNSTopic'
+        }
+      }
+    },
   }
 }
