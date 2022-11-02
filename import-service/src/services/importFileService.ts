@@ -38,6 +38,7 @@ export class ImportFileService {
       return url;
     } catch(error) {
       console.log('ImportFileService: Error while creating signed url via S3-client - ', error);
+      throw Error(error);
     }
   }
 
@@ -69,6 +70,7 @@ export class ImportFileService {
       await this.deleteFile(fileName);
     } catch (error) {
       console.log('ImportFileService: Error while moving file to new repository');
+      throw Error(error);
     }
 
     return parsedProducts;
@@ -87,6 +89,7 @@ export class ImportFileService {
       console.log(`ImportFileService: File copied successfully from  ${name} to ${targetName}`);
     } catch (error) {
       console.log(`ImportFileService: Error while coping file from  ${name} to ${targetName}`, error);
+      throw Error(error);
     }
   }
 
@@ -102,6 +105,7 @@ export class ImportFileService {
       console.log(`ImportFileService: File ${name} deleted successfully`);
     } catch(error) {
       console.log(`ImportFileService: Error while deleting file ${name}`);
+      throw Error(error);
     }
   }
 }

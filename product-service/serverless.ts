@@ -4,9 +4,10 @@ import getProductList from '@functions/getProductList';
 import getProductById from '@functions/getProductById';
 import createProduct from '@functions/createProduct';
 
-import { DEPLOY_REGIN } from 'src/constants';
+import { CREATE_PRODUCT_TOPIC_NAME, DEPLOY_REGION } from 'src/constants';
 import { resources } from 'src/sls/resources';
 import { custom } from 'src/sls/custom';
+import catalogBatchProcess from '@functions/catalogBatchProcess';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
@@ -15,7 +16,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
-    region: DEPLOY_REGIN,
+    region: DEPLOY_REGION,
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -23,6 +24,7 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      SNS_TOPIC_ARN: 'arn:aws:sns:${aws:region}:${aws:accountId}:' + CREATE_PRODUCT_TOPIC_NAME
     },
     iamRoleStatements: [
       {
@@ -35,7 +37,12 @@ const serverlessConfiguration: AWS = {
           'dynamodb:UpdateItem',
           'dynamodb:PutItem'
         ],
-        Resource: `arn:aws:dynamodb:${DEPLOY_REGIN}:*:table/*`
+        Resource: `arn:aws:dynamodb:${DEPLOY_REGION}:*:table/*`
+      },
+      {
+        Effect: 'Allow',
+        Action: ['sns:*'],
+        Resource: `arn:aws:sns:${DEPLOY_REGION}:*:${CREATE_PRODUCT_TOPIC_NAME}`        
       }
     ]
   },
@@ -43,6 +50,7 @@ const serverlessConfiguration: AWS = {
     getProductList,
     getProductById,
     createProduct,
+    catalogBatchProcess
   },
   package: { 
     individually: true

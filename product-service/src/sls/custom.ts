@@ -1,4 +1,4 @@
-import { PRODUCT_DB_PORT } from "src/constants";
+import { PRODUCT_DB_PORT } from 'src/constants';
 
 export const custom = {
   esbuild: {
