@@ -6,3 +6,4 @@ export const UPLOAD_S3_BUCKET_NAME = 'uploaded-evgladkiy';
 export const UPLOADED_FOLDER_NAME = 'uploaded';
 export const PARSED_FOLDER_NAME = 'parsed';
 export const CATALOG_PRODUCT_QUEUE_NAME = 'catalogProductsQueue';
+export const AUTH_LAMBDA_NAME = 'authorization-service-dev-basicAuthorizer'
